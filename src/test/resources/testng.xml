@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test name="Test">
+    <classes>
+      <class name="com.smartinc.EmployeeAPI_QA.POSTP1.POST_200_Test"/>
+      <class name="com.smartinc.EmployeeAPI_QA.GETG1.Get_200_Test"/>
+      <class name="com.smartinc.EmployeeAPI_QA.DELETED1.Delete_200_Test"/>
+      <class name="com.smartinc.EmployeeAPI_QA.PUTP1.Put_200_Test"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

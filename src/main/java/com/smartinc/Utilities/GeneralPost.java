@@ -1,0 +1,54 @@
+package com.smartinc.Utilities;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+import org.apache.http.HttpResponse;
+import org.testng.asserts.SoftAssert;
+
+import com.aventstack.extentreports.ExtentTest;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.smartinc.APIFunctions.Headers;
+import com.smartinc.APIFunctions.RequestPost;
+import com.smartinc.APIFunctions.Response;
+
+public class GeneralPost {
+	
+	public int generalPost(String payload){
+		RequestPost request = new RequestPost();
+		Headers headers = new Headers();
+		headers.addHeader("Content-Type", "application/json");
+		headers.addHeader("Accept", "application/json");
+		String url = "http://dummy.restapiexample.com/api/v1/create";
+		Response response = request.submitPost(url, payload, headers);
+		JsonObject obj = getJSONObject(response.getHttpResponse());
+		System.out.println(obj.toString());
+	    JsonObject  data = obj.get("data").getAsJsonObject();
+	    int id = data.get("id").getAsInt();
+		System.out.println(id);
+		return id;
+	}
+	
+	public JsonObject getJSONObject(HttpResponse response) {
+		JsonObject jsonObject= null;
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+			String jsonS = "";
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				jsonS += line;
+			}
+			Gson gson = new Gson();
+			JsonElement jelement = new JsonParser().parse(jsonS);
+			jsonObject = gson.fromJson(jelement, JsonObject.class);
+			return jsonObject;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jsonObject;
+	}
+
+}
