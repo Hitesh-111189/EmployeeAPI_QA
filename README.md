@@ -1,8 +1,8 @@
-#Introduction
+# Introduction
 Project to test CRUD operations on Employee API
 
 
-##Steps to import this Maven project and run the application
+## Steps to import this Maven project and run the application
 1.	Clone this project from Github using the git url of this project into your local repository
 2.	Note down the location in the windows file system where the project is imported
 4.  Go to Eclipe>File>Import> type Maven> Select "Existing Maven Projects"> Browse to the windows file system where you have kept the project imported from git > Click Finish
