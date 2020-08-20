@@ -6,17 +6,18 @@ import java.io.InputStreamReader;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 
 public class Response {
 	private HttpResponse response;
-
+	private String responseString;
+	
 	public Response(HttpResponse response) {
 		//super();
 		this.response = response;
+		responseString = getResponseString(this.response);
 		
 	}
 
@@ -43,24 +44,14 @@ public class Response {
 	public JsonObject getJSONObject() {
 		JsonObject jsonObject= null;
 		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-			StringBuilder jsonS = new StringBuilder();
-			String line = null;
-			while ((line = reader.readLine()) != null) {
-				jsonS.append(line + "\n");
-			}
-			System.out.println(jsonS.toString());
 			Gson gson = new Gson();
-			jsonObject = gson.fromJson(jsonS.toString(), JsonObject.class);
-			
+			jsonObject = gson.fromJson(responseString.toString(), JsonObject.class);
 			return jsonObject;
 		} catch (Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		return jsonObject;
 	}
-	    
-	
 	
 	public String getResponseHeaders(){
 		String retValue = "";
@@ -68,5 +59,25 @@ public class Response {
 			retValue = retValue + header.toString() + "\r\n";
 		}
 		return retValue;
+	}
+	
+	private String getResponseString(HttpResponse response){
+		StringBuilder jsonS =null;
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+			jsonS = new StringBuilder();
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				jsonS.append(line);
+			}
+			return jsonS.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String getResponseString(){
+		return responseString;
 	}
 }

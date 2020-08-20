@@ -52,13 +52,14 @@ public class Put_200_Test {
 			System.out.println(postPayload);
 			System.out.println(putPayload);
 			GeneralPost gp = new GeneralPost();
-			int id = gp.generalPost(postPayload);
+			int id = gp.generalPost(oTest, postPayload, softAssert);
 			path = "/update/" + id;
 			String url = baseUrl + endpointVariable + path;
 			RequestPut request = new RequestPut();
 			Headers headers = new Headers();
 			headers.addHeader("Content-Type", "application/json");
 			headers.addHeader("Accept", "application/json");
+			headers.addHeader("Cookie","PHPSESSID=854ec07ab3f38127a34090377b840043; ezCMPCCS=true");
 			oTest.log(Status.INFO, "Hitting Endpoint URL " + url);
 			Response response = request.submitPut(url, putPayload, headers);
 			HTMLReport.writeRequestResponse(oTest, url, response, headers, putPayload, response.getStatusLine(), "Put Response Request", softAssert);

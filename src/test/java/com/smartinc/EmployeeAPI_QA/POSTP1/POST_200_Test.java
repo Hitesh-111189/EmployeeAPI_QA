@@ -33,7 +33,6 @@ public class POST_200_Test {
 	ReadExcel readExcel;
 	ProcessPayload processPayload;
 
-
 	public POST_200_Test() {
 		oExtent = HTMLReport.createExtentFreshReport("DEV");
 		baseUrl = "http://dummy.restapiexample.com/api/";

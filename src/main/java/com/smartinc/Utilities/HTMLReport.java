@@ -17,6 +17,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -134,7 +135,7 @@ public class HTMLReport {
             Assert.assertTrue(false);
         } 
     }
-	 
+	
 	 public static String writeRequestFile(String endpoint, Headers headers, String payload, String filename) {
 	        String headerValue = "";
 	        String fullRequest = "";

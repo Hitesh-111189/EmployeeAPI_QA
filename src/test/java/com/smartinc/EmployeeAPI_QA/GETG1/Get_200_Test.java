@@ -34,7 +34,7 @@ public class Get_200_Test {
 		readExcel = new ReadExcel("src/test/resources/TestData.xlsx");
 	}
 	
-	@Test
+	//@Test
 	public void run200GetTest(){
 		try {
 			softAssert = new SoftAssert();
@@ -73,13 +73,14 @@ public class Get_200_Test {
 			String postPayload = readExcel.getCellData("Payloads", "Payload", 2);
 			System.out.println(postPayload);
 			GeneralPost gp = new GeneralPost();
-			int id = gp.generalPost(postPayload);
+			int id = gp.generalPost(oTest, postPayload, softAssert);
 			path = "/employee/" + id;
 			String url = baseUrl + endpointVariable + path;
 			RequestGet request = new RequestGet();
 			Headers headers = new Headers();
 			headers.addHeader("Content-Type", "application/json");
 			headers.addHeader("Accept", "application/json");
+			headers.addHeader("Cookie","PHPSESSID=854ec07ab3f38127a34090377b840043; ezCMPCCS=true");
 			oTest.log(Status.INFO, "Hitting Endpoint URL " + url);
 			Response response = request.submitGet(url, "", headers);
 			HTMLReport.writeRequestResponse(oTest, url, response, headers, "", response.getStatusLine(), "Get Response Request", softAssert);

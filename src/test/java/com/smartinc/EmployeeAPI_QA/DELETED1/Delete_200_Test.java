@@ -44,13 +44,14 @@ public class Delete_200_Test {
 			String postPayload = readExcel.getCellData("Payloads", "Payload", 2);
 			System.out.println(postPayload);
 			GeneralPost gp = new GeneralPost();
-			int id = gp.generalPost(postPayload);
+			int id = gp.generalPost(oTest, postPayload, softAssert);
 			path = "/delete/" + id;
 			String url = baseUrl + endpointVariable + path;
 			RequestDelete request = new RequestDelete();
 			Headers headers = new Headers();
 			headers.addHeader("Content-Type", "application/json");
 			headers.addHeader("Accept", "application/json");
+			headers.addHeader("Cookie","PHPSESSID=854ec07ab3f38127a34090377b840043; ezCMPCCS=true");
 			oTest.log(Status.INFO, "Hitting Endpoint URL " + url);
 			Response response = request.submitDelete(url, "", headers);
 			HTMLReport.writeRequestResponse(oTest, url, response, headers, "", response.getStatusLine(), "Delete Response Request", softAssert);

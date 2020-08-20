@@ -17,16 +17,17 @@ import com.smartinc.APIFunctions.Response;
 
 public class GeneralPost {
 	
-	public int generalPost(String payload){
+	public int generalPost(ExtentTest oTest, String payload, SoftAssert softAssert){
 		RequestPost request = new RequestPost();
 		Headers headers = new Headers();
 		headers.addHeader("Content-Type", "application/json");
 		headers.addHeader("Accept", "application/json");
+		headers.addHeader("Cookie","PHPSESSID=854ec07ab3f38127a34090377b840043; ezCMPCCS=true");
 		String url = "http://dummy.restapiexample.com/api/v1/create";
 		Response response = request.submitPost(url, payload, headers);
-		JsonObject obj = getJSONObject(response.getHttpResponse());
-		System.out.println(obj.toString());
-	    JsonObject  data = obj.get("data").getAsJsonObject();
+		HTMLReport.writeRequestResponse(oTest, url, response, headers, payload, response.getStatusLine(), "Post Response Request", softAssert);
+		System.out.println(response.getResponseString());
+	    JsonObject  data = response.getJSONObject().get("data").getAsJsonObject();
 	    int id = data.get("id").getAsInt();
 		System.out.println(id);
 		return id;
